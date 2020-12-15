@@ -17,18 +17,21 @@ class SignUp extends Component {
             firstName: '',
             lastName: '',
             email: '',
+            phoneNumber: '',
             password: '',
             confirmPassword: '',
 
             firstNameStatus: false,
             lastNameStatus: false,
             emailStatus: false,
+            phoneNumberStatus: false,
             passwordStatus: false,
             confirmPasswordStatus: false,
 
             firstNameError: ' ',
             lastNameError: ' ',
             emailError: ' ',
+            phoneNumberError: ' ',
             passwordError: ' ',
             confirmPasswordError: ' ',
 
@@ -43,11 +46,11 @@ class SignUp extends Component {
 
     handleChange = ({ target }, pattern, message) => {
         this.setState({ [target.name]: target.value }, () => {
-            this.inputValidation(target, pattern, message)
+            this.validation(target, pattern, message)
         })
     }
 
-    inputValidation = (target, pattern, message) => {
+    validation = (target, pattern, message) => {
         this.setState({
             [target.name + "Status"]: true,
             [target.name + "Error"]: "Required *"
@@ -92,7 +95,7 @@ class SignUp extends Component {
         this.props.history.push('/signin')
     }
 
-    handleSignUp = () => {
+    handleRegistration = () => {
         if (this.state.firstName.trim() === "") {
             this.setState({
                 firstNameStatus: true,
@@ -111,6 +114,12 @@ class SignUp extends Component {
                 emailError: 'Required *'
             })
         }
+        if (this.state.phoneNumber.trim() === "") {
+            this.setState({
+                phoneNumberStatus: true,
+                phoneNumberError: 'Required *'
+            })
+        }
         if (this.state.password.trim() === "") {
             this.setState({
                 passwordStatus: true,
@@ -123,12 +132,12 @@ class SignUp extends Component {
                 confirmPasswordError: 'Required *'
             })
         }
-        if (this.state.firstName.trim() !== "" && this.state.lastName.trim() !== "" && this.state.email.trim() !== "" && this.state.password.trim() !== "" && this.state.confirmPassword.trim() !== "") {
-            if (this.state.firstNameStatus === false && this.state.lastNameStatus === false && this.state.emailStatus === false && this.state.passwordStatus === false && this.state.confirmPasswordStatus === false) {
+        if (this.state.firstName.trim() !== "" && this.state.lastName.trim() !== "" && this.state.email.trim() !== "" && this.state.phoneNumber.trim() !== "" && this.state.password.trim() !== "" && this.state.confirmPassword.trim() !== "") {
+            if (this.state.firstNameStatus === false && this.state.lastNameStatus === false && this.state.emailStatus === false && this.state.phoneNumberStatus === false && this.state.passwordStatus === false && this.state.confirmPasswordStatus === false) {
                 const data = {
                     "firstName": this.state.firstName,
                     "lastName": this.state.lastName,
-                    "phoneNumber": "",
+                    "phoneNumber": this.state.phoneNumber,
                     "imageUrl": "",
                     "service": "advance",
                     "email": this.state.email,
@@ -175,12 +184,17 @@ class SignUp extends Component {
                                     <TextField id="outlined-basic" size="small" error={this.state.firstNameStatus} helperText={this.state.firstNameError} onChange={textEvent => this.handleChange(textEvent, "^.{3,50}$", "At least 3 character")} fullWidth label="First Name" required autoComplete="off" variant="outlined" name="firstName" />
                                 </div>
                                 <div className="lastname-textfield">
-                                    <TextField id="outlined-basic" size="small" error={this.state.lastNameStatus} helperText={this.state.lastNameError} onChange={textEvent => this.handleChange(textEvent, "^.{3,50}$", "At least 3 character")} onBlur={textEvent => this.inputValidation} fullWidth label="Last Name" required autoComplete="off" variant="outlined" name="lastName" />
+                                    <TextField id="outlined-basic" size="small" error={this.state.lastNameStatus} helperText={this.state.lastNameError} onChange={textEvent => this.handleChange(textEvent, "^.{3,50}$", "At least 3 character")} onBlur={textEvent => this.validation} fullWidth label="Last Name" required autoComplete="off" variant="outlined" name="lastName" />
                                 </div>
                             </div>
                             <div className="email-textfield">
                                 <div className="email-text">
                                     <TextField id="outlined-basic" size="small" error={this.state.emailStatus} helperText={this.state.emailError} onChange={textEvent => this.handleChange(textEvent, "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$", "Please enter valid email address")} autoComplete="off" required fullWidth label="Email" variant="outlined" name="email" />
+                                </div>
+                            </div>
+                            <div className="phone-textfield">
+                                <div className="phone-number">
+                                    <TextField id="outlined-basic" size="small" error={this.state.phoneNumberStatus} helperText={this.state.phoneNumberError} onChange={textEvent => this.handleChange(textEvent, "^[0-9]{10}$", "Please enter 10 digit number")} autoComplete="off" required fullWidth label="Phone Number" variant="outlined" name="phoneNumber" />
                                 </div>
                             </div>
                             <div className="password-container">
@@ -198,7 +212,7 @@ class SignUp extends Component {
                             </div>
                             <div className="button-link-container">
                                 <div className="link" onClick={this.handleSignIn}>Sign in instead</div>
-                                <div className="button"><button onClick={this.handleSignUp} className="next-button">Sign Up</button></div>
+                                <div className="button"><button onClick={this.handleRegistration} className="next-button">Sign Up</button></div>
                             </div>
                         </div>
                     </div>

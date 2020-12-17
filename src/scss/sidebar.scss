@@ -1,0 +1,23 @@
+.MuiTypography-root.MuiListItemText-primary.MuiTypography-body1.MuiTypography-displayBlock {
+  color: #202124;
+  letter-spacing: .01785714em;
+  font-family: 'Google Sans',Roboto,Arial,sans-serif;
+  font-size: .875rem;
+  font-weight: bold;
+  line-height: 1.25rem;
+}
+
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button:hover {
+  background-color: #51d3f0;
+}
+
+.MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft.MuiPaper-elevation0{
+  width: 260px;
+  top: 63px;
+  border-right: none;
+}

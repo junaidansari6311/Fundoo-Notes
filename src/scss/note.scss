@@ -1,0 +1,54 @@
+.accordion-main-container {
+  display: flex;
+  justify-content: center;
+  width:100%;
+  margin-top: 2%;
+}
+.accordion-main {
+  width: 500px;
+}
+.take-note {
+  width:90%
+}
+
+.image-upload {
+  width: 10%;
+}
+.details-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-container {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon-button-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5%;
+}
+
+.close-button-div {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
+.button-close {
+  border: none;
+  outline: none;
+  background-color: white;
+}
+
+.button-close:hover{
+  background-color: lightgray;
+  border-radius: 3px;
+}

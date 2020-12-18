@@ -5,6 +5,8 @@ import SignUp from '../pages/SignUp';
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import Navbar from "../component/Navbar";
+import Note from "../component/Note";
+import Dashboard from "../component/Dashboard";
 
 class RouterConfiguration extends Component {
     render() {
@@ -16,6 +18,8 @@ class RouterConfiguration extends Component {
                     <Route path={"/forgotpassword"} exact component={ForgotPassword}/>
                     <Route path={"/resetpassword/:token"} excat component={ResetPassword} />
                     <Route path={"/"} exact component={Navbar} />
+                    <Route path={"/note"} exact component={Note} />
+                    <Route path={"/dashboard"} exact component={Dashboard} />
                 </Switch>
             </BrowserRouter>
         )

@@ -7,13 +7,39 @@
 .accordion-main {
   width: 500px;
 }
+
+.title-icon-div1{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.take-note1 {
+  width: 80%
+}
+
+.iconPin {
+  width: 20%;
+}
+
+.title-icon-div{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
 .take-note {
-  width:90%
+  width: 80%
+}
+
+.checkBox{
+  width: 10%;
 }
 
 .image-upload {
   width: 10%;
 }
+
 .details-container{
   display: flex;
   flex-direction: column;

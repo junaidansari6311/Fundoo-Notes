@@ -14,6 +14,14 @@ class NoteService {
                 callback(error.response);
             });
     }
+
+    getAllNotes = (callback) => {
+        return Axios.get(`${Url}notes/getNotesList?access_token=${token}`)
+    }
+
+    updateNote = (data,callback) => {
+        return Axios.post(`${Url}notes/updateNotes?access_token=${token}`, data)
+    }
 }
 
 export default new NoteService();

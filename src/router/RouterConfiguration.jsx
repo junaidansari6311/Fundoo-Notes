@@ -5,7 +5,6 @@ import SignUp from '../pages/SignUp';
 import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import Navbar from "../component/Navbar";
-import Note from "../component/Note";
 import Dashboard from "../component/Dashboard";
 import DisplayNotes from "../component/DisplayNotes";
 

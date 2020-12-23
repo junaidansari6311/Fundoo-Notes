@@ -6,7 +6,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import {withRouter} from "react-router";
 import Sidebar from "./Sidebar";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import IconButton from "@material-ui/core/IconButton";
 
 class Navbar extends Component {
     constructor() {

@@ -10,6 +10,7 @@ import ArchiveIcon from "@material-ui/icons/Archive";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import InputBase from "@material-ui/core/InputBase";
 import NoteService from "../service/NoteService";
+import Masonry from "react-masonry-css";
 
 class DisplayNotes extends Component {
     constructor(props){

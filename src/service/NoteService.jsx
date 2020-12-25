@@ -19,8 +19,12 @@ class NoteService {
         return Axios.get(`${Url}notes/getNotesList?access_token=${token}`)
     }
 
-    updateNote = (data,callback) => {
+    updateNote = (data) => {
         return Axios.post(`${Url}notes/updateNotes?access_token=${token}`, data)
+    }
+
+    changeNoteColor = (data) => {
+        return Axios.post(`${Url}notes/changesColorNotes?access_token=${token}`, data)
     }
 }
 

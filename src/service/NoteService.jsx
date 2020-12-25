@@ -26,6 +26,10 @@ class NoteService {
     changeNoteColor = (data) => {
         return Axios.post(`${Url}notes/changesColorNotes?access_token=${token}`, data)
     }
+
+    archiveNotes = (data) => {
+        return Axios.post(`${Url}notes/archiveNotes?access_token=${token}`, data)
+    }
 }
 
 export default new NoteService();

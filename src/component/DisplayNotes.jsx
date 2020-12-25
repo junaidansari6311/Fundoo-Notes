@@ -58,8 +58,8 @@ class DisplayNotes extends Component {
         this.setState({ description: await e.target.value })
     }
 
-    handleUpdate = (id, title, description) => {
-        this.setState({isDialogVisible: true , id: id,title: title, description: description})
+    handleUpdate = (id, title, description,color) => {
+        this.setState({isDialogVisible: true , id: id,title: title, description: description,color: color})
     }
 
     setColor = (color, id) => {
@@ -77,27 +77,39 @@ class DisplayNotes extends Component {
     render() {
         return (
             <div className="flex-container">
-                    {this.state.noteDetails.map((note,index)=>
-                        <div key={note.id} className="flex-container-main">
-                        <div className="card-container"
-                             onMouseOver={() => this.handleVisible(index)} onMouseOut={() => this.handleVisible('')}
-                             style={{backgroundColor: note.color}}
-                        >
-                            <div className="card-title">
-                                <div onClick={() => this.handleUpdate(note.id, note.title, note.description,note.color)}>{note.title}</div>
-                            </div>
-                            <div className="card-note">
-                                <div onClick={() => this.handleUpdate(note.id, note.title, note.description,note.color)}>{note.description}</div>
-                            </div>
-                            <div className="card-icon-container"
-                                 style={index === this.state.index ? {visibility: 'visible'} : {visibility: 'hidden'}}>
-                                <div className="card-icon">
-                                    <Icon setColor={this.setColor} noteId={this.state.id} />
+                {this.state.noteDetails.map((note,index)=> {
+                    return (
+                        <>
+                        {note.isArchived === false ? (
+                            <div key={note.id} className="flex-container-main">
+                                <div className="card-container"
+                                     onMouseOver={() => this.handleVisible(index)}
+                                     onMouseOut={() => this.handleVisible('')}
+                                     style={{backgroundColor: note.color}}
+                                >
+                                    <div className="card-title">
+                                        <div
+                                            onClick={() => this.handleUpdate(note.id, note.title, note.description, note.color)}>{note.title}</div>
+                                    </div>
+                                    <div className="card-note">
+                                        <div
+                                            onClick={() => this.handleUpdate(note.id, note.title, note.description, note.color)}>{note.description}</div>
+                                    </div>
+                                    <div className="card-icon-container"
+                                         style={index === this.state.index ? {visibility: 'visible'} : {visibility: 'hidden'}}>
+                                        <div className="card-icon">
+                                            <Icon setColor={this.setColor} noteId={this.state.id}/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>)}
-                <Dialog className="dialog-box" open={this.state.isDialogVisible} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+                        ) : ("")
+                        }
+                        </>
+                        )
+                        }
+                )}
+                <Dialog className="dialog-box" open={this.state.isDialogVisible} onClose={this.handleClose} aria-labelledby="form-dialog-title" >
                     <DialogContent className="dialog-content" >
                         <div className="dialog-container" style={{backgroundColor : this.state.color}}>
                             <div className="dailog-title">

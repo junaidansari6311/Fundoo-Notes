@@ -82,6 +82,14 @@
   flex-direction: column;
 }
 
+.dailog-title {
+  padding-left: 10px;
+}
+
+.dailog-note {
+  padding-left: 10px;
+}
+
 .item-icons {
   display: flex;
   flex-direction: row;
@@ -93,24 +101,33 @@
   display: flex;
   justify-content: space-between
 }
+
 .close-container {
   width: 20%;
 }
+
 .close-button {
   border: none;
   outline: none;
-  background-color: white;
+  background-color: transparent;
 }
 
 .close-button:hover{
   background-color: #51d3f0;
 }
 
+div.MuiDialogContent-root:first-child {
+   padding-top: 0;
+}
+
 .MuiDialogContent-root.dialog-content {
   overflow-y: hidden;
 }
-.MuiDialogContent-root{
+
+div.MuiDialogContent-root{
   overflow-y: hidden;
+  padding: 0 0;
+  border-radius: 5px;
 }
 
 .MuiDialog-paper {

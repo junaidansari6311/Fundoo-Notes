@@ -9,6 +9,7 @@ import UnarchiveOutlinedIcon from '@material-ui/icons/UnarchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import NoteService from "../service/NoteService";
+import CustomSnackBar from "./CustomSnackBar";
 
 class Icon extends React.Component {
 
@@ -17,6 +18,9 @@ class Icon extends React.Component {
         this.state = {
             isVisible: false,
             archived: false,
+            alertShow: false,
+            alertResponse: "",
+            severity: "success",
             color: ['#fff','#f28b82','#fbbc04','#fff475','#ccff90','#a7ffeb','#cbf0f8','#aecbfa','#d7aefb','#fdcfe8','#e6c9a8','#e8eaed']
         }
     }
@@ -45,7 +49,11 @@ class Icon extends React.Component {
             noteIdList: [this.props.noteId]
         }
         NoteService.archiveNotes(data).then((response) => {
-            console.log(response)
+            this.setState({
+                severity: "success",
+                alertShow : true,
+                alertResponse : response.data.message
+            });
         })
     }
 
@@ -56,14 +64,26 @@ class Icon extends React.Component {
             noteIdList: [this.props.noteId]
         }
         NoteService.archiveNotes(data).then((response) => {
-            console.log(response)
+            this.setState({
+                severity: "success",
+                alertShow : true,
+                alertResponse : response.data.message
+            });
         })
+    }
+
+    closeAlertBox = () => {
+        this.setState({ alertShow: false });
     }
 
     render(){
         const url = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
         return(
             <div className="icons-container">
+                <CustomSnackBar alertShow={this.state.alertShow}
+                                severity={this.state.severity}
+                                alertResponse={this.state.alertResponse}
+                                closeAlertBox={this.state.closeAlertBox} />
                 <div className="color-container" style={ this.state.isVisible ? {visibility:'visible'} : {visibility:'hidden'} }>
                     {this.state.color.map((color,index) => <div className="color-picker" onClick={() => this.handleColor(color)} style={{backgroundColor:color}}></div>)}
                 </div>

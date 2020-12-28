@@ -30,6 +30,10 @@ class NoteService {
     archiveNotes = (data) => {
         return Axios.post(`${Url}notes/archiveNotes?access_token=${token}`, data)
     }
+
+    pinUnpinNotes = (data) => {
+        return Axios.post(`${Url}notes/pinUnpinNotes?access_token=${token}`, data)
+    }
 }
 
 export default new NoteService();

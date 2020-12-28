@@ -8,15 +8,10 @@ import Pin from '../assets/Pin.svg';
 import Unpin from '../assets/Unpin.svg';
 import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
 import Typography from "@material-ui/core/Typography";
-import ReminderIcon from "@material-ui/icons/Notifications";
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import PaletteIcon from '@material-ui/icons/Palette';
-import ImageIcon from '@material-ui/icons/Image';
-import ArchiveIcon from '@material-ui/icons/Archive';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import IconButton from "@material-ui/core/IconButton";
 import NoteService from "../service/NoteService";
+import Icon from "./Icon";
 
 class Note extends Component {
     constructor() {
@@ -79,7 +74,7 @@ class Note extends Component {
                                 <Typography className="take-note1"></Typography>
                                 <IconButton className="iconPin" onClick={this.handlePin} >
                                     { (this.state.pin === true )  ?
-                                        <img classname="imgPin" src={Pin} alt="Pin icon" />
+                                        <img src={Pin} alt="Pin icon" />
                                         :
                                         <img src={Unpin} alt="Pin icon" />
                                     }
@@ -114,12 +109,7 @@ class Note extends Component {
                        </div>
                         <div className="icon-button-container">
                             <div className="icon-container">
-                                <ReminderIcon/>
-                                <PersonAddIcon/>
-                                <PaletteIcon/>
-                                <ImageIcon/>
-                                <ArchiveIcon/>
-                                <MoreVertIcon/>
+                                <Icon/>
                             </div>
                             <div className="close-button-div">
                                 <button className="button-close" onClick={this.handleCloseButton}>Close</button>

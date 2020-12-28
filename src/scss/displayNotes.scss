@@ -30,8 +30,20 @@
   flex-direction: column;
 }
 
-.card-title {
+.card-pin-title {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.card-pin-unPin {
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+}
+.card-title {
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
   min-height: 36px;
   color: #202124;
   direction: ltr;
@@ -44,7 +56,7 @@
   outline: none;
   white-space: pre-wrap;
   word-wrap: break-word;
-  padding: 10px 14px 10px 14px;
+  padding: 24px 14px 10px 14px;
 }
 
 .card-note {
@@ -82,7 +94,21 @@
   flex-direction: column;
 }
 
+.dialog-pin-title {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.dialog-pin-unPin {
+  width: 20%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .dailog-title {
+  width: 80%;
+  display: flex;
+  justify-content: flex-start;
   padding-left: 10px;
 }
 

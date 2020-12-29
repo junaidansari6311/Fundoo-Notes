@@ -6,7 +6,7 @@ class CustomSnackBar extends Component {
     render() {
         return (
             <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={this.props.alertShow}
-                      autoHideDuration={5000} onClose={this.props.closeAlertBox}>
+                      autoHideDuration={500} onClose={this.props.closeAlertBox}>
                 <Alert style={{backgroundColor: "#1f1f1f"}}
                        onClose={this.props.closeAlertBox} severity={this.props.severity}
                        variant={"filled"}>

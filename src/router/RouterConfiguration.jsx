@@ -7,6 +7,7 @@ import ResetPassword from "../pages/ResetPassword";
 import Navbar from "../component/Navbar";
 import Dashboard from "../component/Dashboard";
 import DisplayNotes from "../component/DisplayNotes";
+import DisplayArchivedNotes from "../component/DisplayArchivedNotes";
 
 class RouterConfiguration extends Component {
     render() {
@@ -20,6 +21,7 @@ class RouterConfiguration extends Component {
                     <Route path={"/"} exact component={Navbar} />
                     <Route path={"/note"} exact component={DisplayNotes} />
                     <Route path={"/dashboard"} exact component={Dashboard} />
+                    <Route path={"/archive"} exact component={DisplayArchivedNotes}/>
                 </Switch>
             </BrowserRouter>
         )

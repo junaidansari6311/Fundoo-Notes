@@ -77,9 +77,12 @@ class DisplayNotes extends Component {
             noteIdList: [id]
         }
         NoteService.changeNoteColor(data).then((response) => {
-            console.log("colorrrr")
-            this.componentWillMount();
+            this.setState({
+                severity: "success",
+                alertShow: true,
+                alertResponse: "Note Color Changed" });
         })
+        this.componentWillMount();
     }
 
     pinNote = (id) => {
@@ -90,8 +93,11 @@ class DisplayNotes extends Component {
             noteIdList: [id],
             isPined: true,
         };
-        NoteService.pinUnpinNotes(data, (response) => {
-            this.setState({ severity: "success",alertShow: true, alertResponse: response.data.message });
+        NoteService.pinUnpinNotes(data).then((response) => {
+            this.setState({
+                severity: "success",
+                alertShow: true,
+                alertResponse: "Note Pined" });
         });
         this.componentWillMount();
     };
@@ -104,13 +110,17 @@ class DisplayNotes extends Component {
             noteIdList: [id],
             isPined: false,
         };
-        NoteService.pinUnpinNotes(data, (response) => {
-            this.setState({ severity: "success",alertShow: true, alertResponse: response.data.message});
+        NoteService.pinUnpinNotes(data).then((response) => {
+            this.setState({
+                severity: "success",
+                alertShow: true,
+                alertResponse: "Note Unpined"});
         });
         this.componentWillMount();
     };
 
     closeAlertBox = () => {
+        console.log("color changed",this.state.alertShow)
         this.setState({ alertShow: false });
     }
 
@@ -120,15 +130,16 @@ class DisplayNotes extends Component {
                 <CustomSnackBar alertShow={this.state.alertShow}
                                 severity={this.state.severity}
                                 alertResponse={this.state.alertResponse}
-                                closeAlertBox={this.state.closeAlertBox} />
+                                closeAlertBox={this.closeAlertBox} />
                 {this.state.noteDetails.map((note,index)=> {
                     return (
                         <>
-                        {note.isArchived === false ? (
+                        {note.isArchived === this.props.archived && note.isPined === this.props.pin ? (
                             <div key={note.id} className="flex-container-main">
                                 <div className="card-container"
                                      onMouseOver={() => this.handleVisible(index)}
                                      onMouseOut={() => this.handleVisible('')}
+                                     onClick={() => this.setState({ id: note.id })}
                                      style={{backgroundColor: note.color}}
                                 >
                                     <div className="card-pin-title">
@@ -141,7 +152,7 @@ class DisplayNotes extends Component {
                                                     <img src={Pin} alt="Pin icon"/>
                                                 </IconButton>
                                                 :
-                                                <IconButton onClick={() => this.unPinNote(note.id)}>
+                                                <IconButton onClick={() => this.unPinNote(note.id) }>
                                                     <img src={Unpin} alt="Pin icon"/>
                                                 </IconButton>
                                             }
@@ -154,7 +165,7 @@ class DisplayNotes extends Component {
                                     <div className="card-icon-container"
                                          style={index === this.state.index ? {visibility: 'visible'} : {visibility: 'hidden'}}>
                                         <div className="card-icon">
-                                            <Icon setColor={this.setColor} noteId={this.state.id} />
+                                            <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
                                         </div>
                                     </div>
                                 </div>
@@ -177,17 +188,6 @@ class DisplayNotes extends Component {
                                         value={this.state.title}
                                     />
                                 </div>
-                                <div className="dialog-pin-unPin">
-                                    {this.state.pinned  === false ?
-                                        <IconButton onClick={() => this.pinNote(this.state.id)}>
-                                            <img src={Pin} alt="Pin icon"/>
-                                        </IconButton>
-                                        :
-                                        <IconButton onClick={() => this.unPinNote(this.state.id)}>
-                                            <img src={Unpin} alt="Pin icon"/>
-                                        </IconButton>
-                                    }
-                                </div>
                             </div>
 
                             <div className="dailog-note">
@@ -201,7 +201,7 @@ class DisplayNotes extends Component {
                             </div>
                                 <div className="item-icons">
                                     <div className="items">
-                                        <Icon setColor={this.setColor} noteId={this.state.id} />
+                                        <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
                                     </div>
                                     <div className="close-container">
                                         <button className="close-button" onClick={this.handleClose}>Close</button>

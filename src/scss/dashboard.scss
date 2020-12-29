@@ -1,0 +1,44 @@
+.pinned{
+  padding-left: 21%;
+  padding-top: 1%;
+  font-weight: 500;
+}
+
+.others{
+  padding-left: 21%;
+  padding-top: 1%;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 414px) and (max-height: 823px ) {
+  .pinned{
+    padding-left: 8%;
+    padding-top: 2%;
+  }
+
+  .others{
+    padding-left: 8%;
+  }
+}
+
+@media only screen and (width: 768px) and (height: 1024px ) {
+  .pinned{
+    padding-left: 17%;
+    padding-top: 2%;
+  }
+
+  .others{
+    padding-left: 17%;
+  }
+}
+
+@media only screen and (width: 1024px) and (height: 1366px ) {
+  .pinned{
+    padding-left: 25.5%;
+    padding-top: 2%;
+  }
+
+  .others{
+    padding-left: 25.5%;
+  }
+}

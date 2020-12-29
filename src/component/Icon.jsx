@@ -52,9 +52,10 @@ class Icon extends React.Component {
             this.setState({
                 severity: "success",
                 alertShow : true,
-                alertResponse : response.data.message
+                alertResponse : "Note Archived"
             });
         })
+        this.props.update();
     }
 
     handleUnarchive = () => {
@@ -67,9 +68,10 @@ class Icon extends React.Component {
             this.setState({
                 severity: "success",
                 alertShow : true,
-                alertResponse : response.data.message
+                alertResponse : "Note Unarchived"
             });
         })
+        this.props.update();
     }
 
     closeAlertBox = () => {
@@ -77,13 +79,12 @@ class Icon extends React.Component {
     }
 
     render(){
-        const url = window.location.href.substring(window.location.href.lastIndexOf('/')+1);
         return(
             <div className="icons-container">
                 <CustomSnackBar alertShow={this.state.alertShow}
                                 severity={this.state.severity}
                                 alertResponse={this.state.alertResponse}
-                                closeAlertBox={this.state.closeAlertBox} />
+                                closeAlertBox={this.closeAlertBox} />
                 <div className="color-container" style={ this.state.isVisible ? {visibility:'visible'} : {visibility:'hidden'} }>
                     {this.state.color.map((color,index) => <div className="color-picker" onClick={() => this.handleColor(color)} style={{backgroundColor:color}}></div>)}
                 </div>
@@ -91,7 +92,7 @@ class Icon extends React.Component {
                 <IconButton size="small"><PersonAddOutlinedIcon fontSize="inherit" color="action" /></IconButton>
                 <IconButton size="small"><ColorLensOutlinedIcon color="action" onClick={this.handleClick} fontSize="inherit" /></IconButton>
                 <IconButton size="small"><ImageOutlinedIcon fontSize="inherit" color="action" /></IconButton>
-                <IconButton size="small">{this.state.archived === false ? <ArchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleArchive} /> : <UnarchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleUnarchive} />}</IconButton>
+                <IconButton size="small">{this.props.archived === this.state.archived ? <ArchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleArchive} /> : <UnarchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleUnarchive} />}</IconButton>
                 <IconButton size="small"><MoreVertOutlinedIcon fontSize="inherit" color="action"/></IconButton>
             </div>
         )

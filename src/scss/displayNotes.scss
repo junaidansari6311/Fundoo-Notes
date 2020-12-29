@@ -94,21 +94,7 @@
   flex-direction: column;
 }
 
-.dialog-pin-title {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-.dialog-pin-unPin {
-  width: 20%;
-  display: flex;
-  justify-content: flex-end;
-}
-
 .dailog-title {
-  width: 80%;
-  display: flex;
-  justify-content: flex-start;
   padding-left: 10px;
 }
 
@@ -181,15 +167,13 @@ div.MuiDialogContent-root{
 
 @media only screen and (width: 768px) and (height: 1024px ) {
   .flex-container {
-    justify-content: center;
     width: 100%;
-    padding-left: 0px;
+    padding-left: 112px;
   }
 }
 
 @media only screen and (width: 1024px) and (height: 1366px ) {
   .flex-container {
-    justify-content: center;
-    padding-left: 155px;
+    padding-left: 240px;
   }
 }

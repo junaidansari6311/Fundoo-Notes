@@ -11,6 +11,7 @@ import ReminderIcon from '@material-ui/icons/Notifications';
 import TrashIcon from '@material-ui/icons/Delete';
 import NoteIcon from '@material-ui/icons/EmojiObjects';
 import EditIcon from '@material-ui/icons/EditOutlined';
+import {Link} from "react-router-dom";
 
 class Sidebar extends Component {
     constructor(props) {
@@ -20,12 +21,14 @@ class Sidebar extends Component {
         return (
             <Drawer variant='persistent' open={this.props.openSidebar} >
                 <List>
-                    <ListItem button>
-                        <ListItemIcon><NoteIcon/></ListItemIcon>
-                        <ListItemText primary="Note"/>
-                    </ListItem>
+                    <Link to= "/dashboard">
+                        <ListItem button>
+                            <ListItemIcon><NoteIcon/></ListItemIcon>
+                            <ListItemText primary="Note"/>
+                        </ListItem>
+                    </Link>
 
-                    <ListItem button>
+                    <ListItem button >
                         <ListItemIcon><ReminderIcon/></ListItemIcon>
                         <ListItemText primary="Reminder"/>
                     </ListItem>
@@ -38,12 +41,12 @@ class Sidebar extends Component {
                     </ListItem>
 
                     <Divider/>
-
-                    <ListItem button>
+                <Link to= "/archive">
+                    <ListItem button >
                         <ListItemIcon><ArchiveIcon/></ListItemIcon>
                         <ListItemText primary="Archive"/>
                     </ListItem>
-
+                </Link>
                     <ListItem button>
                         <ListItemIcon><TrashIcon/></ListItemIcon>
                         <ListItemText primary="Trash"/>

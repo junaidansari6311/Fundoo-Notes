@@ -12,9 +12,9 @@ class Dashboard extends Component {
                 <Navbar />
                 <Note/>
                 <Typography className="pinned">PINNED</Typography>
-                <DisplayNotes pin={true} archived={false}/>
+                <DisplayNotes pin={true} archived={false} deleted={false}/>
                 <Typography className="others">OTHERS</Typography>
-                <DisplayNotes pin={false} archived={false}/>
+                <DisplayNotes pin={false} archived={false} deleted={false}/>
             </React.Fragment>
         );
     }

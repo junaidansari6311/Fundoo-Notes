@@ -41,16 +41,20 @@ class Sidebar extends Component {
                     </ListItem>
 
                     <Divider/>
-                <Link to= "/archive">
-                    <ListItem button >
-                        <ListItemIcon><ArchiveIcon/></ListItemIcon>
-                        <ListItemText primary="Archive"/>
-                    </ListItem>
-                </Link>
-                    <ListItem button>
-                        <ListItemIcon><TrashIcon/></ListItemIcon>
-                        <ListItemText primary="Trash"/>
-                    </ListItem>
+                    <Link to= "/archive">
+                        <ListItem button >
+                            <ListItemIcon><ArchiveIcon/></ListItemIcon>
+                            <ListItemText primary="Archive"/>
+                        </ListItem>
+                    </Link>
+
+                    <Link to="/trash">
+                        <ListItem button>
+                            <ListItemIcon><TrashIcon/></ListItemIcon>
+                            <ListItemText primary="Trash"/>
+                        </ListItem>
+                    </Link>
+
                 </List>
             </Drawer>
         );

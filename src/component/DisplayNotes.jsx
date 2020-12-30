@@ -9,6 +9,8 @@ import CustomSnackBar from "./CustomSnackBar";
 import Pin from "../assets/Pin.svg";
 import Unpin from "../assets/Unpin.svg";
 import IconButton from "@material-ui/core/IconButton";
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOutlined';
 
 class DisplayNotes extends Component {
     constructor(props){
@@ -100,7 +102,7 @@ class DisplayNotes extends Component {
                 alertResponse: "Note Pined" });
         });
         this.componentWillMount();
-    };
+    }
 
     unPinNote = (id) => {
         this.setState({
@@ -117,10 +119,38 @@ class DisplayNotes extends Component {
                 alertResponse: "Note Unpined"});
         });
         this.componentWillMount();
-    };
+    }
+
+    handleDeleteForever = (id) => {
+        let data = {
+            noteIdList: [id],
+            isDeleted: true,
+        };
+        NoteService.deleteNotesForever(data).then((response) => {
+            this.setState({
+                severity: "success",
+                alertShow: true,
+                alertResponse: "Note Deleted Forever"});
+        });
+        this.componentWillMount();
+    }
+
+    handleRestore = (id) => {
+        console.log(id);
+        let data = {
+            noteIdList: [id],
+            isDeleted: false,
+        };
+        NoteService.restoreTrashNotes(data).then((res) => {
+            this.setState({
+                severity: "success",
+                alertShow: true,
+                alertResponse: "Note Restored"});
+        });
+        this.componentWillMount();
+    }
 
     closeAlertBox = () => {
-        console.log("color changed",this.state.alertShow)
         this.setState({ alertShow: false });
     }
 
@@ -135,7 +165,7 @@ class DisplayNotes extends Component {
                     return (
                         <>
                         {note.isArchived === this.props.archived && note.isPined === this.props.pin
-                        && note.isDeleted === false ? (
+                        && note.isDeleted === this.props.deleted ? (
                             <div key={note.id} className="flex-container-main">
                                 <div className="card-container"
                                      onMouseOver={() => this.handleVisible(index)}
@@ -166,7 +196,18 @@ class DisplayNotes extends Component {
                                     <div className="card-icon-container"
                                          style={index === this.state.index ? {visibility: 'visible'} : {visibility: 'hidden'}}>
                                         <div className="card-icon">
-                                            <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
+                                            {note.isDeleted === false ?
+                                                <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
+                                                :
+                                                <div className="delete-card-icon">
+                                                    <IconButton>
+                                                        <DeleteOutlinedIcon onClick={() => this.handleDeleteForever(note.id)}></DeleteOutlinedIcon>
+                                                    </IconButton>
+                                                    <IconButton >
+                                                        <RestoreFromTrashOutlinedIcon onClick={() => this.handleRestore(note.id)}></RestoreFromTrashOutlinedIcon>
+                                                    </IconButton>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +222,7 @@ class DisplayNotes extends Component {
                     <DialogContent className="dialog-content" >
                         <div className="dialog-container" style={{backgroundColor : this.state.color}}>
                             <div className="dialog-pin-title">
-                                <div className="dailog-title">
+                                <div className="dialog-title">
                                     <InputBase
                                         placeholder="Title"
                                         onChange={this.handleTitleChange}
@@ -191,7 +232,7 @@ class DisplayNotes extends Component {
                                 </div>
                             </div>
 
-                            <div className="dailog-note">
+                            <div className="dialog-note">
                                 <InputBase
                                     placeholder="Take a note ..."
                                     onChange={this.handleDescriptionChange}
@@ -202,10 +243,25 @@ class DisplayNotes extends Component {
                             </div>
                                 <div className="item-icons">
                                     <div className="items">
-                                        <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
+                                        {this.props.deleted === false ?
+                                            <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
+                                            :
+                                            <div className="dialog-card-icon">
+                                                <IconButton>
+                                                    <DeleteOutlinedIcon onClick={() => this.handleDeleteForever(this.state.id)}></DeleteOutlinedIcon>
+                                                </IconButton>
+                                                <IconButton>
+                                                    <RestoreFromTrashOutlinedIcon onClick={() => this.handleRestore(this.state.id)}></RestoreFromTrashOutlinedIcon>
+                                                </IconButton>
+                                            </div>
+                                        }
                                     </div>
                                     <div className="close-container">
-                                        <button className="close-button" onClick={this.handleClose}>Close</button>
+                                        {this.props.deleted === false ?
+                                            <button className="close-button" onClick={this.handleClose}>Close</button>
+                                            :
+                                            ""
+                                        }
                                     </div>
                                 </div>
                         </div>

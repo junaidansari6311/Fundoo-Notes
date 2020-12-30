@@ -80,11 +80,17 @@
 
 }
 
-.card-icon{
+.card-icon {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: space-around;
+}
+
+.delete-card-icon {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .dialog-container {
@@ -94,11 +100,12 @@
   flex-direction: column;
 }
 
-.dailog-title {
+.dialog-title {
   padding-left: 10px;
+  padding-top: 10px;
 }
 
-.dailog-note {
+.dialog-note {
   padding-left: 10px;
 }
 
@@ -106,6 +113,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-top: 3%;
 }
 
 .items {
@@ -163,7 +171,6 @@ div.MuiDialogContent-root{
     width: 300px;
   }
 }
-
 
 @media only screen and (width: 768px) and (height: 1024px ) {
   .flex-container {

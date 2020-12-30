@@ -38,6 +38,14 @@ class NoteService {
     deleteNotes = (data) => {
         return Axios.post(`${Url}notes/trashNotes?access_token=${token}`, data)
     }
+
+    deleteNotesForever = (data) => {
+        return Axios.post(`${Url}notes/deleteForeverNotes?access_token=${token}`, data)
+    }
+
+    restoreTrashNotes = (data) => {
+        return Axios.post(`${Url}notes/trashNotes?access_token=${token}`,data)
+    }
 }
 
 export default new NoteService();

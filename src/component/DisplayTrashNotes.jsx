@@ -2,15 +2,15 @@ import React, {Component} from 'react';
 import Navbar from "./Navbar";
 import DisplayNotes from "./DisplayNotes";
 
-class DisplayArchivedNotes extends Component {
+class DisplayTrashNotes extends Component {
     render() {
         return (
             <div>
                 <Navbar/>
-                <DisplayNotes archived={true} pin={false} deleted={false}/>
+                <DisplayNotes archived={false} pin={false} deleted={true}/>
             </div>
         );
     }
 }
 
-export default DisplayArchivedNotes;
+export default DisplayTrashNotes;

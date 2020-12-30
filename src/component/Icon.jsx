@@ -21,6 +21,7 @@ class Icon extends React.Component {
             alertShow: false,
             alertResponse: "",
             severity: "success",
+            isMenuVisible: false,
             color: ['#fff','#f28b82','#fbbc04','#fff475','#ccff90','#a7ffeb','#cbf0f8','#aecbfa','#d7aefb','#fdcfe8','#e6c9a8','#e8eaed']
         }
     }
@@ -74,6 +75,24 @@ class Icon extends React.Component {
         this.props.update();
     }
 
+    handleMenu = () => {
+        this.setState({isMenuVisible: !this.state.isMenuVisible})
+    }
+    handleDelete = () => {
+        const data = {
+            isDeleted: true,
+            noteIdList: [this.props.noteId]
+        }
+        NoteService.deleteNotes(data).then((response) => {
+            this.setState({
+                severity : "success",
+                alertShow : true,
+                alertResponse : "Note Deleted"
+            });
+            this.props.update();
+        })
+    }
+
     closeAlertBox = () => {
         this.setState({ alertShow: false });
     }
@@ -88,12 +107,17 @@ class Icon extends React.Component {
                 <div className="color-container" style={ this.state.isVisible ? {visibility:'visible'} : {visibility:'hidden'} }>
                     {this.state.color.map((color,index) => <div className="color-picker" onClick={() => this.handleColor(color)} style={{backgroundColor:color}}></div>)}
                 </div>
+                <div className="more-container" style={ this.state.isMenuVisible ? {visibility: 'visible'} : {visibility: 'hidden'} }>
+                    <div className="more-options">
+                        <button className="menu-button" onClick={this.handleDelete}>Delete Note</button>
+                    </div>
+                </div>
                 <IconButton size="small"><AddAlertOutlinedIcon fontSize="inherit" color="action" /></IconButton>
                 <IconButton size="small"><PersonAddOutlinedIcon fontSize="inherit" color="action" /></IconButton>
                 <IconButton size="small"><ColorLensOutlinedIcon color="action" onClick={this.handleClick} fontSize="inherit" /></IconButton>
                 <IconButton size="small"><ImageOutlinedIcon fontSize="inherit" color="action" /></IconButton>
                 <IconButton size="small">{this.props.archived === this.state.archived ? <ArchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleArchive} /> : <UnarchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleUnarchive} />}</IconButton>
-                <IconButton size="small"><MoreVertOutlinedIcon fontSize="inherit" color="action"/></IconButton>
+                <IconButton size="small"><MoreVertOutlinedIcon fontSize="inherit" color="action" onClick={this.handleMenu} /></IconButton>
             </div>
         )
     }

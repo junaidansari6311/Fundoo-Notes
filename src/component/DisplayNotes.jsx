@@ -134,7 +134,8 @@ class DisplayNotes extends Component {
                 {this.state.noteDetails.map((note,index)=> {
                     return (
                         <>
-                        {note.isArchived === this.props.archived && note.isPined === this.props.pin ? (
+                        {note.isArchived === this.props.archived && note.isPined === this.props.pin
+                        && note.isDeleted === false ? (
                             <div key={note.id} className="flex-container-main">
                                 <div className="card-container"
                                      onMouseOver={() => this.handleVisible(index)}

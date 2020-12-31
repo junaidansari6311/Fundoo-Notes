@@ -11,6 +11,7 @@ import Unpin from "../assets/Unpin.svg";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOutlined';
+import Tooltip from "@material-ui/core/Tooltip";
 
 class DisplayNotes extends Component {
     constructor(props){
@@ -247,12 +248,18 @@ class DisplayNotes extends Component {
                                             <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
                                             :
                                             <div className="dialog-card-icon">
-                                                <IconButton>
-                                                    <DeleteOutlinedIcon onClick={() => this.handleDeleteForever(this.state.id)}></DeleteOutlinedIcon>
-                                                </IconButton>
-                                                <IconButton>
-                                                    <RestoreFromTrashOutlinedIcon onClick={() => this.handleRestore(this.state.id)}></RestoreFromTrashOutlinedIcon>
-                                                </IconButton>
+                                                <Tooltip title="Delete Forever">
+                                                    <IconButton>
+                                                        <DeleteOutlinedIcon onClick={() => this.handleDeleteForever(this.state.id)}></DeleteOutlinedIcon>
+                                                    </IconButton>
+                                                </Tooltip>
+
+                                                <Tooltip title="Restore">
+                                                    <IconButton>
+                                                        <RestoreFromTrashOutlinedIcon onClick={() => this.handleRestore(this.state.id)}></RestoreFromTrashOutlinedIcon>
+                                                    </IconButton>
+                                                </Tooltip>
+
                                             </div>
                                         }
                                     </div>

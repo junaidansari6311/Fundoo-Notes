@@ -10,6 +10,7 @@ import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import NoteService from "../service/NoteService";
 import CustomSnackBar from "./CustomSnackBar";
+import Tooltip from "@material-ui/core/Tooltip";
 
 class Icon extends React.Component {
 
@@ -112,12 +113,48 @@ class Icon extends React.Component {
                         <button className="menu-button" onClick={this.handleDelete}>Delete Note</button>
                     </div>
                 </div>
-                <IconButton size="small"><AddAlertOutlinedIcon fontSize="inherit" color="action" /></IconButton>
-                <IconButton size="small"><PersonAddOutlinedIcon fontSize="inherit" color="action" /></IconButton>
-                <IconButton size="small"><ColorLensOutlinedIcon color="action" onClick={this.handleClick} fontSize="inherit" /></IconButton>
-                <IconButton size="small"><ImageOutlinedIcon fontSize="inherit" color="action" /></IconButton>
-                <IconButton size="small">{this.props.archived === this.state.archived ? <ArchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleArchive} /> : <UnarchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleUnarchive} />}</IconButton>
-                <IconButton size="small"><MoreVertOutlinedIcon fontSize="inherit" color="action" onClick={this.handleMenu} /></IconButton>
+                <Tooltip title="Remind me">
+                    <IconButton size="small">
+                        <AddAlertOutlinedIcon fontSize="inherit" color="action" />
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Collaborator">
+                    <IconButton size="small">
+                        <PersonAddOutlinedIcon fontSize="inherit" color="action" />
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Change">
+                    <IconButton size="small">
+                        <ColorLensOutlinedIcon color="action" onClick={this.handleClick} fontSize="inherit" />
+                    </IconButton>
+                </Tooltip>
+
+                <Tooltip title="Add Image">
+                    <IconButton size="small">
+                        <ImageOutlinedIcon fontSize="inherit" color="action" />
+                    </IconButton>
+                </Tooltip>
+
+                {this.props.archived === this.state.archived ?
+                    <Tooltip title="Archive">
+                        <IconButton size="small">
+                            <ArchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleArchive}/>
+                        </IconButton>
+                    </Tooltip>
+                    :
+                    <Tooltip title="Unarchive">
+                        <IconButton size="small">
+                            <UnarchiveOutlinedIcon fontSize="inherit" color="action" onClick={this.handleUnarchive}/>
+                        </IconButton>
+                    </Tooltip>
+                }
+                <Tooltip title="More">
+                    <IconButton size="small">
+                        <MoreVertOutlinedIcon fontSize="inherit" color="action" onClick={this.handleMenu} />
+                    </IconButton>
+                </Tooltip>
             </div>
         )
     }

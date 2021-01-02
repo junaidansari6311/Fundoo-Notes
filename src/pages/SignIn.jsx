@@ -99,8 +99,26 @@ class SignIn extends Component {
                 "password": this.state.password
             }
             new UserAxiosService().login(data).then((response) => {
-                console.log(response)
-                localStorage.setItem('token', response.data.id)
+                if(response.status === 200){
+                    let userdetails = {
+                        name: response.data.firstName,
+                        lastname: response.data.lastName,
+                        email: response.data.email,
+                        id: response.data.id,
+                        userId: response.data.userId,
+                    };
+                    localStorage.setItem("details", JSON.stringify(userdetails));
+                    localStorage.setItem('token', response.data.id);
+                    let customerdetails = {
+                        name: response.data.firstName,
+                        lastName: response.data.lastName,
+                        email: response.data.email,
+                    };
+                    this.props.history.push({
+                        pathname: "/dashboard",
+                        state: { customerdetails },
+                    });
+                }
                 this.setState({
                     severity: "success",
                     alertShow: true,

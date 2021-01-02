@@ -4,12 +4,13 @@ import Navbar from "./Navbar";
 import Note from "./Note";
 import DisplayNotes from "./DisplayNotes";
 import Typography from "@material-ui/core/Typography";
+import Label from "./Label";
 
 class Dashboard extends Component {
     render() {
         return (
             <React.Fragment>
-                <Navbar />
+                <Navbar/>
                 <Note/>
                 <Typography className="pinned">PINNED</Typography>
                 <DisplayNotes pin={true} archived={false} deleted={false}/>

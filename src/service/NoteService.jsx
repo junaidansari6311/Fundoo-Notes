@@ -15,7 +15,7 @@ class NoteService {
             });
     }
 
-    getAllNotes = (callback) => {
+    getAllNotes = () => {
         return Axios.get(`${Url}notes/getNotesList?access_token=${token}`)
     }
 
@@ -45,6 +45,40 @@ class NoteService {
 
     restoreTrashNotes = (data) => {
         return Axios.post(`${Url}notes/trashNotes?access_token=${token}`,data)
+    }
+
+    noteLabels = (data) => {
+        return Axios.post(`${Url}noteLabels?access_token=${token}`, data)
+    }
+
+    deleteNoteLabels = (data) => {
+        return Axios.delete(`${Url}/noteLabels/${data.id}/deleteNoteLabel?access_token=${token}`, data)
+    }
+
+    updateNoteLabels = (data) => {
+        return Axios.post(`${Url}/noteLabels/${data.id}/updateNoteLabel?access_token=${token}`, data)
+    }
+
+
+    addLabelToNotes = (data) => {
+        return Axios.post(
+            `${Url}/notes/${data.NoteId}/addLabelToNotes/${data.lableId}/add?access_token=${token}`
+        )
+    }
+
+    removeLabelToNotes = (data) => {
+        return Axios.post(
+            `${Url}/notes/${data.NoteId}/addLabelToNotes/${data.lableId}/remove?access_token=${token}`
+        )
+    }
+
+    getNotesListByLabels = (data) => {
+        return Axios.post(
+            `${Url}/notes/getNotesListByLabel/${data}?access_token=${token}`, data)
+    }
+
+    getNoteLabelList = () => {
+        return Axios.get(`${Url}/noteLabels/getNoteLabelList?access_token=${token}`)
     }
 }
 

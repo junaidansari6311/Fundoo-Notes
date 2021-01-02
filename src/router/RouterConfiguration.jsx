@@ -9,6 +9,7 @@ import Dashboard from "../component/Dashboard";
 import DisplayNotes from "../component/DisplayNotes";
 import DisplayArchivedNotes from "../component/DisplayArchivedNotes";
 import DisplayTrashNotes from "../component/DisplayTrashNotes";
+import Label from "../component/Label";
 
 class RouterConfiguration extends Component {
     render() {
@@ -24,6 +25,7 @@ class RouterConfiguration extends Component {
                     <Route path={"/dashboard"} exact component={Dashboard} />
                     <Route path={"/archive"} exact component={DisplayArchivedNotes}/>
                     <Route path={"/trash"} exact component={DisplayTrashNotes}/>
+                    <Route path={"/label"} exact component={Label}/>
                 </Switch>
             </BrowserRouter>
         )

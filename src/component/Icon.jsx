@@ -91,6 +91,7 @@ class Icon extends React.Component {
                 alertResponse : "Note Deleted"
             });
             this.props.update();
+            this.handleMenu();
         })
     }
 
@@ -110,7 +111,12 @@ class Icon extends React.Component {
                 </div>
                 <div className="more-container" style={ this.state.isMenuVisible ? {visibility: 'visible'} : {visibility: 'hidden'} }>
                     <div className="more-options">
-                        <button className="menu-button" onClick={this.handleDelete}>Delete Note</button>
+                        <div>
+                            <button className="delete-button" onClick={this.handleDelete}>Delete Note</button>
+                        </div>
+                        <div>
+                            <button className="add-label-button" >Add Label</button>
+                        </div>
                     </div>
                 </div>
                 <Tooltip title="Remind me">

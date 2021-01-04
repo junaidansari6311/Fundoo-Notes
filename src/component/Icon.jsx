@@ -11,6 +11,18 @@ import IconButton from '@material-ui/core/IconButton';
 import NoteService from "../service/NoteService";
 import CustomSnackBar from "./CustomSnackBar";
 import Tooltip from "@material-ui/core/Tooltip";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import {makeStyles} from "@material-ui/styles";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+const useStyles = makeStyles((theme) => ({
+    typography: {
+        padding: theme.spacing(3),
+    },
+}));
 
 class Icon extends React.Component {
 
@@ -23,8 +35,26 @@ class Icon extends React.Component {
             alertResponse: "",
             severity: "success",
             isMenuVisible: false,
+            open: false,
+            labelOpen: false,
+            anchorEl: null,
+            allLabels: [],
+            checkedValues: [],
+            labelId: null,
             color: ['#fff','#f28b82','#fbbc04','#fff475','#ccff90','#a7ffeb','#cbf0f8','#aecbfa','#d7aefb','#fdcfe8','#e6c9a8','#e8eaed']
         }
+    }
+
+    getLabels = () => {
+        NoteService.getNoteLabelList().then((response) => {
+            this.setState({
+                allLabels: response.data.data.details,
+            });
+        });
+    }
+
+    componentWillMount() {
+        this.getLabels();
     }
 
     handleClick = () => {
@@ -91,12 +121,41 @@ class Icon extends React.Component {
                 alertResponse : "Note Deleted"
             });
             this.props.update();
-            this.handleMenu();
         })
     }
 
     closeAlertBox = () => {
         this.setState({ alertShow: false });
+    }
+
+    handlePopoverClick = (event) => {
+        this.setState({ open: true });
+        this.setState({ anchorEl: event.currentTarget });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false, labelOpen: false });
+    };
+
+    LabelNote = () => {
+        this.setState({ labelOpen: true });
+    };
+
+    handleCheck(e, x, id) {
+        this.setState((state) => ({
+            checkedValues: state.checkedValues.includes(x)
+                ? state.checkedValues.filter((c) => c !== x)
+                : [...state.checkedValues, x],
+        }));
+        let data = {
+            NoteId: this.props.noteId,
+            lableId: id,
+        };
+        NoteService.addLabelToNotes(data).then((res) => {
+            console.log(res);
+            this.setState({ open: false, labelOpen: false });
+            this.props.update();
+        });
     }
 
     render(){
@@ -108,16 +167,6 @@ class Icon extends React.Component {
                                 closeAlertBox={this.closeAlertBox} />
                 <div className="color-container" style={ this.state.isVisible ? {visibility:'visible'} : {visibility:'hidden'} }>
                     {this.state.color.map((color,index) => <div className="color-picker" onClick={() => this.handleColor(color)} style={{backgroundColor:color}}></div>)}
-                </div>
-                <div className="more-container" style={ this.state.isMenuVisible ? {visibility: 'visible'} : {visibility: 'hidden'} }>
-                    <div className="more-options">
-                        <div>
-                            <button className="delete-button" onClick={this.handleDelete}>Delete Note</button>
-                        </div>
-                        <div>
-                            <button className="add-label-button" >Add Label</button>
-                        </div>
-                    </div>
                 </div>
                 <Tooltip title="Remind me">
                     <IconButton size="small">
@@ -158,7 +207,89 @@ class Icon extends React.Component {
                 }
                 <Tooltip title="More">
                     <IconButton size="small">
-                        <MoreVertOutlinedIcon fontSize="inherit" color="action" onClick={this.handleMenu} />
+                        <>
+                            <MoreVertOutlinedIcon
+                                style={{color:"black"}}
+                                variant="contained"
+                                color="primary"
+                                title="Remind me"
+                                onClick={this.handlePopoverClick}
+                            ></MoreVertOutlinedIcon>
+                            <Popover
+                                open={this.state.open}
+                                anchorEl={this.state.anchorEl}
+                                onClose={this.handleClose}
+                                anchorOrigin={{
+                                    vertical: "bottom",
+                                    horizontal: "center",
+                                }}
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "center",
+                                }}
+                                PaperProps={{
+                                    className: "more",
+                                }}
+                            >
+                                <Typography className={useStyles.typography}>
+                                    <p style={{ marginTop: "-1%", color: "black" }}>
+                                        <Button
+                                            color="primary"
+                                            style={{ color: "black" }}
+                                            onClick={this.handleDelete}
+                                        >
+                                            Delete Note
+                                        </Button>
+                                    </p>
+                                    <p style={{ marginTop: "-11%" }}>
+                                        <Button
+                                            color="primary"
+                                            style={{ color: "black" }}
+                                            onClick={this.LabelNote}
+                                        >
+                                            Add Label
+                                        </Button>
+                                    </p>
+                                </Typography>
+                            </Popover>
+
+                            <Popover
+                                aria-labelledby="simple-dialog-title"
+                                open={this.state.labelOpen}
+                                anchorEl={this.state.anchorEl}
+                                onClose={this.handleClose}
+                                anchorOrigin={{
+                                    vertical: "bottom",
+                                    horizontal: "center",
+                                }}
+                                transformOrigin={{
+                                    vertical: "top",
+                                    horizontal: "center",
+                                    display: "flex",
+                                }}
+                                PaperProps={{
+                                    className: "more",
+                                }}
+                            >
+                                <FormLabel component="legend"
+                                style={{fontWeight:"bold",color:"black"}}>Label note</FormLabel>
+                                {this.state.allLabels.map((value, x) => {
+                                    return (
+                                        <FormControlLabel
+                                            control={
+                                                <Checkbox
+                                                    label={x}
+                                                    key={x.toString()}
+                                                    onChange={(e) => this.handleCheck(e, x, value.id)}
+                                                    checked={this.state.checkedValues.includes(x)}
+                                                />
+                                            }
+                                            label={value.label}
+                                        />
+                                    );
+                                })}
+                            </Popover>
+                        </>
                     </IconButton>
                 </Tooltip>
             </div>

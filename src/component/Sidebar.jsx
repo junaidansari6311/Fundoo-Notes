@@ -127,25 +127,25 @@ class Sidebar extends Component {
                     </ListItem>
 
                     <Divider/>
-                    {this.state.allLabels.map((value, index) => {
-                        return (
-                            <>
-                                {value !== null ? (
-                                    <ListItem
-                                        button
-                                        onClick={() => this.getLabelsByValue(value.label)}
-                                    >
-                                        <ListItemIcon>
-                                            <LabelOutlinedIcon />
-                                        </ListItemIcon>
-                                        <ListItemText primary={value.label} />
-                                    </ListItem>
-                                ) : (
-                                    ""
-                                )}
-                            </>
-                        );
-                    })}
+                        {this.state.allLabels.map((value, index) => {
+                            return (
+                                <>
+                                    {value !== null ? (
+                                        <ListItem
+                                            button
+                                            onClick={() => this.getLabelsByValue(value.label)}
+                                        >
+                                            <ListItemIcon>
+                                                <LabelOutlinedIcon />
+                                            </ListItemIcon>
+                                            <ListItemText primary={value.label} />
+                                        </ListItem>
+                                    ) : (
+                                        ""
+                                    )}
+                                </>
+                            );
+                        })}
 
                         <ListItem button onClick={this.handleEditLabel}>
                             <ListItemIcon><EditIcon/></ListItemIcon>

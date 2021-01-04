@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import Note from "./Note";
 import DisplayNotes from "./DisplayNotes";
 import Typography from "@material-ui/core/Typography";
-import Label from "./Label";
 
 class Dashboard extends Component {
     render() {

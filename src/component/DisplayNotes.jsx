@@ -12,6 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOutlined';
 import Tooltip from "@material-ui/core/Tooltip";
+import Chip from "@material-ui/core/Chip";
 
 class DisplayNotes extends Component {
     constructor(props){
@@ -151,6 +152,22 @@ class DisplayNotes extends Component {
         this.componentWillMount();
     }
 
+    handleLabelDelete = (noteId, labelId) => {
+        let data = {
+            NoteId: noteId,
+            lableId: labelId,
+        };
+        NoteService.removeLabelToNotes(data).then((res) => {
+            this.setState({
+                severity: "success",
+                alertShow: true,
+                alertResponse: "Note Label Removed"
+            });
+            this.componentWillMount();
+        });
+    };
+
+
     closeAlertBox = () => {
         this.setState({ alertShow: false });
     }
@@ -194,11 +211,40 @@ class DisplayNotes extends Component {
                                     <div className="card-note">
                                         <div onClick={() => this.handleUpdate(note.id, note.title, note.description, note.color)}>{note.description}</div>
                                     </div>
+                                    <div style={{ marginTop: "13%" }}>
+                                        {note.noteLabels[0] != null &&
+                                        this.props.deleted === false ? (
+                                            <>
+                                                {note.noteLabels.map((labelValue, index) => {
+                                                    return (
+                                                        <Chip
+                                                            onDelete={() =>
+                                                                this.handleLabelDelete(
+                                                                    note.id,
+                                                                    labelValue.id
+                                                                )
+                                                            }
+                                                            label={labelValue.label}
+                                                            style={{
+                                                                marginLeft: "6%",
+                                                                backgroundColor: "lightgrey",
+                                                                fontWeight: "bold",
+                                                                borderRadius:"15px"
+                                                            }}
+                                                        />
+                                                    );
+                                                })}
+                                            </>
+                                        ) : (
+                                            ""
+                                        )}
+                                    </div>
                                     <div className="card-icon-container"
                                          style={index === this.state.index ? {visibility: 'visible'} : {visibility: 'hidden'}}>
                                         <div className="card-icon">
                                             {note.isDeleted === false ?
-                                                <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
+                                                <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived}
+                                                      update={this.getNotes}/>
                                                 :
                                                 <div className="delete-card-icon">
                                                     <IconButton>
@@ -245,7 +291,10 @@ class DisplayNotes extends Component {
                                 <div className="item-icons">
                                     <div className="items">
                                         {this.props.deleted === false ?
-                                            <Icon setColor={this.setColor} noteId={this.state.id} archived={this.props.archived} update={this.getNotes}/>
+                                            <Icon setColor={this.setColor} noteId={this.state.id}
+                                                  archived={this.props.archived}
+                                                  update={this.getNotes}
+                                            />
                                             :
                                             <div className="dialog-card-icon">
                                                 <Tooltip title="Delete Forever">
